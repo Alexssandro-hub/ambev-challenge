@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
-public class Rating : BaseEntity
+public class Rating 
 {
+    public required int Id { get; set; }
     public required float Rate { get; set; }
     public required int Count { get; set; }
 }
