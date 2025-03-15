@@ -10,12 +10,27 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.UpdateCart;
 
 public class UpdateCartCommandValidator : AbstractValidator<UpdateCartCommand>
 {
+    private const string shortDateFormat = "d";
     public UpdateCartCommandValidator()
     {
-        RuleFor(cart => cart.UserId).Equal(Guid.NewGuid());
-        RuleFor(cart => cart.UserId).Equal(Guid.Empty);
-        RuleFor(cart => cart.Date).Equal(DateTime.MinValue);
-        RuleFor(cart => cart.Date).Equal(DateTime.MaxValue);
-        RuleFor(cart => cart.ProductCarts).NotEmpty();
+        RuleFor(cart => cart.UserId)
+            .Equal(Guid.NewGuid())
+            .WithMessage("User ID is required");
+
+        RuleFor(cart => cart.UserId)
+            .Equal(Guid.Empty)
+            .WithMessage("User ID is required");
+
+        RuleFor(cart => cart.Date)
+            .Equal(DateTime.MinValue)
+            .WithMessage($"Date property can't be {DateTime.MinValue.ToString(shortDateFormat)}");
+
+        RuleFor(cart => cart.Date)
+            .Equal(DateTime.MaxValue)
+            .WithMessage($"Date property can't be {DateTime.MaxValue.ToString(shortDateFormat)}");
+
+        RuleFor(cart => cart.ProductCarts)
+            .NotEmpty()
+            .WithMessage("The products are required");
     }
 }
