@@ -1,14 +1,12 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Carts.CreateCart;
 using Ambev.DeveloperEvaluation.Application.Carts.DeleteCart;
-using Ambev.DeveloperEvaluation.Application.Users.CreateUser;
-using Ambev.DeveloperEvaluation.Application.Users.DeleteUser;
-using Ambev.DeveloperEvaluation.Application.Users.GetUser;
+using Ambev.DeveloperEvaluation.Application.Carts.GetCart;
+using Ambev.DeveloperEvaluation.Application.Carts.UpdateCart; 
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Carts.CreateCart;
 using Ambev.DeveloperEvaluation.WebApi.Features.Carts.DeleteCart;
-using Ambev.DeveloperEvaluation.WebApi.Features.Users.CreateUser;
-using Ambev.DeveloperEvaluation.WebApi.Features.Users.DeleteUser;
-using Ambev.DeveloperEvaluation.WebApi.Features.Users.GetUser;
+using Ambev.DeveloperEvaluation.WebApi.Features.Carts.GetCart;
+using Ambev.DeveloperEvaluation.WebApi.Features.Carts.UpdateCart; 
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +25,31 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts
             _mediator = mediator;
             _mapper = mapper;
         }
-         
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ApiResponseWithData<GetCartResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetById([FromRoute] int id, CancellationToken cancellationToken)
+        {
+            var request = new GetCartRequest { Id = id };
+            var validator = new GetCartRequestValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
+            var command = _mapper.Map<GetCartCommand>(request.Id);
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(new ApiResponseWithData<GetCartResponse>
+            {
+                Success = true,
+                Message = "Cart retrieved successfully",
+                Data = _mapper.Map<GetCartResponse>(response)
+            });
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponseWithData<CreateCartResponse>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -49,31 +71,29 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts
                 Data = _mapper.Map<CreateCartResponse>(response)
             });
         }
-         
-        //[HttpGet("{id}")]
-        //[ProducesResponseType(typeof(ApiResponseWithData<GetUserResponse>), StatusCodes.Status200OK)]
-        //[ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        //public async Task<IActionResult> GetUser([FromRoute] Guid id, CancellationToken cancellationToken)
-        //{
-        //    var request = new GetUserRequest { Id = id };
-        //    var validator = new GetUserRequestValidator();
-        //    var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
-        //    if (!validationResult.IsValid)
-        //        return BadRequest(validationResult.Errors);
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(ApiResponseWithData<UpdateCartResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponseWithData<UpdateCartResponse>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponseWithData<UpdateCartResponse>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCartRequest request, CancellationToken cancellationToken)
+        { 
+            var validator = new UpdateCartRequestValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
-        //    var command = _mapper.Map<GetUserCommand>(request.Id);
-        //    var response = await _mediator.Send(command, cancellationToken);
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
 
-        //    return Ok(new ApiResponseWithData<GetUserResponse>
-        //    {
-        //        Success = true,
-        //        Message = "User retrieved successfully",
-        //        Data = _mapper.Map<GetUserResponse>(response)
-        //    });
-        //}
-         
+            var command = _mapper.Map<UpdateCartCommand>(request);
+            await _mediator.Send(command, cancellationToken);
+
+            return Ok(new ApiResponse
+            {
+                Success = true,
+                Message = "Cart updated successfully"
+            });
+        }
+
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
