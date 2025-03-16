@@ -17,7 +17,7 @@ public class SaleValidator : AbstractValidator<Sale>
             .WithMessage($"The {nameof(Sale)} {nameof(Sale.BranchSaleWasMade)} property can't be empty");
 
         RuleFor(sale => sale.CustomerId)
-            .NotEmpty()
+            .NotEmpty() 
             .WithMessage($"The User ID property can't be empty or 0");
 
         RuleFor(sale => sale.InitialDate)

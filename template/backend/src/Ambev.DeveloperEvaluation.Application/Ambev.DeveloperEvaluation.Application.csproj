@@ -17,8 +17,11 @@
 
   <ItemGroup>
     <Folder Include="Carts\GetCarts\" />
+    <Folder Include="Products\CreateProduct\" />
+    <Folder Include="Products\DeleteProduct\" />
+    <Folder Include="Products\GetProduct\" />
+    <Folder Include="Products\UpdateProduct\" />
     <Folder Include="Sales\" />
-    <Folder Include="Products\" />
   </ItemGroup>
 
 </Project>
