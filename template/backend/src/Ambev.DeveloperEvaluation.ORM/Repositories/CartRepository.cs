@@ -1,27 +1,46 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using Ambev.DeveloperEvaluation.Common.Security;
+using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories;
 
 public class CartRepository : ICartRepository
 {
-    public Task<Cart> CreateAsync(Cart entity, CancellationToken cancellationToken = default)
+    private readonly DefaultContext _context;
+
+    public CartRepository(DefaultContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
     }
 
-    public Task<Cart?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<Cart> CreateAsync(Cart entity, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        await _context.Carts.AddAsync(entity, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
+        return entity;
     }
 
-    public Task<Cart?> GetAllAsync(int take, int skip)
+    public async Task<bool> UpdatedAsync(Cart entity, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        _context.Carts.Update(entity);
+        return await _context.SaveChangesAsync(cancellationToken) > 0;
     }
+     
+    public async Task<Cart?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+        => await _context.Carts.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
 
-    public Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<List<Cart>> GetAllAsync(int take, int skip)
+        => await _context.Carts.Skip(skip).Take(take).ToListAsync();
+     
+    public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var cart = await GetByIdAsync(id, cancellationToken);
+        if (cart == null)
+            return false;
+
+        _context.Carts.Remove(cart);
+        await _context.SaveChangesAsync(cancellationToken);
+        return true;
     }
 }

@@ -11,7 +11,7 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.CreateCart;
 
 public class CreateCartCommandValidator : AbstractValidator<CreateCartCommand>
 {
-    private const string shortDateFormat = "d";
+    private const string ShortDateFormat = "d";
 
     public CreateCartCommandValidator()
     {
@@ -21,11 +21,11 @@ public class CreateCartCommandValidator : AbstractValidator<CreateCartCommand>
         
         RuleFor(cart => cart.Date)
             .Equal(DateTime.MinValue)
-            .WithMessage($"Date property can't be {DateTime.MinValue.ToString(shortDateFormat)}");
+            .WithMessage($"Date property can't be {DateTime.MinValue.ToString(ShortDateFormat)}");
 
         RuleFor(cart => cart.Date)
             .Equal(DateTime.MaxValue)
-            .WithMessage($"Date property can't be {DateTime.MaxValue.ToString(shortDateFormat)}");
+            .WithMessage($"Date property can't be {DateTime.MaxValue.ToString(ShortDateFormat)}");
 
         RuleFor(cart => cart.ProductCarts)
             .NotEmpty()

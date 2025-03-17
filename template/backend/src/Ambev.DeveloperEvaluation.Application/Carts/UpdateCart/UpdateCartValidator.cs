@@ -10,7 +10,7 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.UpdateCart;
 
 public class UpdateCartCommandValidator : AbstractValidator<UpdateCartCommand>
 {
-    private const string shortDateFormat = "d";
+    private const string ShortDateFormat = "d";
     public UpdateCartCommandValidator()
     {
         RuleFor(cart => cart.UserId)
@@ -23,11 +23,11 @@ public class UpdateCartCommandValidator : AbstractValidator<UpdateCartCommand>
 
         RuleFor(cart => cart.Date)
             .Equal(DateTime.MinValue)
-            .WithMessage($"Date property can't be {DateTime.MinValue.ToString(shortDateFormat)}");
+            .WithMessage($"Date property can't be {DateTime.MinValue.ToString(ShortDateFormat)}");
 
         RuleFor(cart => cart.Date)
             .Equal(DateTime.MaxValue)
-            .WithMessage($"Date property can't be {DateTime.MaxValue.ToString(shortDateFormat)}");
+            .WithMessage($"Date property can't be {DateTime.MaxValue.ToString(ShortDateFormat)}");
 
         RuleFor(cart => cart.ProductCarts)
             .NotEmpty()

@@ -1,27 +1,45 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories;
 
 public class RatingRepository : IRatingRepository
 {
-    public Task<Rating> CreateAsync(Rating entity, CancellationToken cancellationToken = default)
+    private readonly DefaultContext _context;
+
+    public RatingRepository(DefaultContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
     }
 
-    public Task<Rating?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<Rating> CreateAsync(Rating entity, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        await _context.Ratings.AddAsync(entity, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
+        return entity;
     }
 
-    public Task<Rating?> GetAllAsync(int take, int skip)
+    public async Task<bool> UpdatedAsync(Rating entity, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        _context.Ratings.Update(entity);
+        return await _context.SaveChangesAsync(cancellationToken) > 0;
     }
 
-    public Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<Rating?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+        => await _context.Ratings.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+
+    public async Task<List<Rating>> GetAllAsync(int take, int skip)
+        => await _context.Ratings.Skip(skip).Take(take).ToListAsync();
+
+    public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var rating = await GetByIdAsync(id, cancellationToken);
+        if (rating == null)
+            return false;
+
+        _context.Ratings.Remove(rating);
+        await _context.SaveChangesAsync(cancellationToken);
+        return true;
     }
 }

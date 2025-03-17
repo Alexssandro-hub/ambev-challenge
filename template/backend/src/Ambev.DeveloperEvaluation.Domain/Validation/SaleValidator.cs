@@ -5,7 +5,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Validation;
 
 public class SaleValidator : AbstractValidator<Sale>
 {
-    private const string shortDateFormat = "d";
+    private const string ShortDateFormat = "d";
     public SaleValidator()
     {
         RuleFor(sale => sale.Id)
@@ -22,11 +22,11 @@ public class SaleValidator : AbstractValidator<Sale>
 
         RuleFor(sale => sale.InitialDate)
             .Equal(DateTime.MinValue)
-            .WithMessage($"The {nameof(Sale)} Date property can't be {DateTime.MinValue.ToString(shortDateFormat)}");
+            .WithMessage($"The {nameof(Sale)} Date property can't be {DateTime.MinValue.ToString(ShortDateFormat)}");
 
         RuleFor(sale => sale.InitialDate)
             .Equal(DateTime.MaxValue)
-            .WithMessage($"The {nameof(Sale)} Date property can't be {DateTime.MaxValue.ToString(shortDateFormat)}");
+            .WithMessage($"The {nameof(Sale)} Date property can't be {DateTime.MaxValue.ToString(ShortDateFormat)}");
 
         RuleFor(sale => sale.Products)
             .NotEmpty()
