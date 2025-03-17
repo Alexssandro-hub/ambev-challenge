@@ -1,6 +1,9 @@
-﻿namespace Ambev.DeveloperEvaluation.Application.Sales.GetSale;
+﻿using Ambev.DeveloperEvaluation.Application.Users.GetUser;
+using MediatR;
 
-public class GetSaleCommand
+namespace Ambev.DeveloperEvaluation.Application.Sales.GetSale;
+
+public class GetSaleCommand : IRequest<GetSaleResult>
 {
     public int Id { get; set; }
 }

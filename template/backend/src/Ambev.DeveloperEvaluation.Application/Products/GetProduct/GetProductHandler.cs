@@ -2,4 +2,8 @@
 
 public class GetProductHandler
 {
+    public GetProductHandler()
+    {
+        
+    }
 }

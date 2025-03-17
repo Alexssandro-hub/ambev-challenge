@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="Carts\GetCarts\" />
-    <Folder Include="Sales\UpdateSale\" />
   </ItemGroup>
 
 </Project>

@@ -2,5 +2,8 @@
 
 public class DeleteProductHandler
 {
-
+    public DeleteProductHandler()
+    {
+        
+    }
 }

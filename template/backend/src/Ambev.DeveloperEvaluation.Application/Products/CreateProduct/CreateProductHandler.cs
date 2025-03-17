@@ -2,4 +2,8 @@
 
 public class CreateProductHandler
 {
+    public CreateProductHandler()
+    {
+        
+    }
 }

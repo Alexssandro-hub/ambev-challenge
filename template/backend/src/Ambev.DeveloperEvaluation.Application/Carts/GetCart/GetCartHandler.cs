@@ -2,5 +2,8 @@
 
 public class GetCartHandler
 {
-
+    public GetCartHandler()
+    {
+        
+    }
 }
