@@ -1,12 +1,6 @@
-﻿using Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
-using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+﻿using Ambev.DeveloperEvaluation.Application.Products.CreateProduct; 
 using Ambev.DeveloperEvaluation.Domain.Enums;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MediatR; 
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale
 {

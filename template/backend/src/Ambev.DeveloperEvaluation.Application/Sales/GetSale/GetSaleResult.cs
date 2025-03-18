@@ -1,6 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
-using Ambev.DeveloperEvaluation.Domain.Enums;
-using System;
+using Ambev.DeveloperEvaluation.Domain.Enums; 
 namespace Ambev.DeveloperEvaluation.Application.Sales.GetSale;
 
 public class GetSaleResult

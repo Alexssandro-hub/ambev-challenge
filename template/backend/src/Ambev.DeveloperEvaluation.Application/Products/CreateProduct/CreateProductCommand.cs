@@ -1,11 +1,6 @@
-﻿using Ambev.DeveloperEvaluation.Application.Carts.CreateCart;
-using Ambev.DeveloperEvaluation.Application.Products.DeleteProduct;
-using Ambev.DeveloperEvaluation.Common.Validation;
+﻿using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.Domain.Entities;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using MediatR; 
 namespace Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
 
 public class CreateProductCommand : IRequest<CreateProductResult>
