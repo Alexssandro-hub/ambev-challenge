@@ -1,6 +1,9 @@
-﻿namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
+﻿using Ambev.DeveloperEvaluation.Application.Products.UpdateProduct;
+using MediatR;
 
-public class GetProductCommand
+namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
+
+public class GetProductCommand : IRequest<GetProductResult>
 {
     public int Id { get; set; }
 }

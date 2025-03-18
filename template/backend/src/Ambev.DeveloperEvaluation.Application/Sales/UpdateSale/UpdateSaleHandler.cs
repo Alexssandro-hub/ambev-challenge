@@ -37,6 +37,6 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleRe
             return _mapper.Map<UpdateSaleResult>(sale);
         }
 
-        return new();
+        throw new InvalidOperationException($"The sale can't be created");
     }
 }

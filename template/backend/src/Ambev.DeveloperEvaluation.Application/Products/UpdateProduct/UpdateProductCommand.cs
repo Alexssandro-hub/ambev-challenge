@@ -1,8 +1,9 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.UpdateProduct;
 
-public class UpdateProductCommand
+public class UpdateProductCommand : IRequest<UpdateProductResult>
 {
     public string Title { get; set; } = string.Empty;
     public decimal UnitPrice { get; set; }
