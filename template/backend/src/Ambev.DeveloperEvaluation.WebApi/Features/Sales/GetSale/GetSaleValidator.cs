@@ -8,6 +8,6 @@ public class GetSaleValidator : AbstractValidator<GetSaleRequest>
     {
         RuleFor(sale => sale.Id)
             .NotEmpty()
-            .WithMessage("User ID is required");
+            .WithMessage("Sale ID is required");
     }
 }

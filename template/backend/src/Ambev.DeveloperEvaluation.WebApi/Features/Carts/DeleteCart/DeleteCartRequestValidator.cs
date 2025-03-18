@@ -8,6 +8,6 @@ public class DeleteCartRequestValidator : AbstractValidator<DeleteCartRequest>
     {
             RuleFor(cart => cart.Id)
                 .NotEmpty()
-                .WithMessage("User ID is required");
+                .WithMessage("Cart ID is required");
     }
 }
