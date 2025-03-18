@@ -1,6 +1,8 @@
-﻿namespace Ambev.DeveloperEvaluation.Application.Carts.DeleteCart;
+﻿using MediatR;
 
-public class DeleteCartCommand
+namespace Ambev.DeveloperEvaluation.Application.Carts.DeleteCart;
+
+public class DeleteCartCommand : IRequest<DeleteCartResult>
 {
     public int Id { get; set; }
     public DeleteCartCommand(int id)

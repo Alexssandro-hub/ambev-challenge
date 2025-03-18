@@ -1,6 +1,8 @@
-﻿namespace Ambev.DeveloperEvaluation.Application.Carts.GetCart;
+﻿using MediatR;
 
-public class GetCartCommand
+namespace Ambev.DeveloperEvaluation.Application.Carts.GetCart;
+
+public class GetCartCommand : IRequest<GetCartResult>
 {
     public int Id { get; set; }
 }
