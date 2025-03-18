@@ -29,7 +29,7 @@ public class CreateSaleCommandValidator : AbstractValidator<CreateSaleCommand>
             .WithMessage($"The {nameof(Sale)} {nameof(Sale.TotalAmount)} property can't be 0");
 
         RuleFor(sale => sale.Products)
-            .NotEmpty()
-            .WithMessage($"The products are required");
+            .Must(products => products.All(p => p.Quantity <= 20))
+            .WithMessage("A product cannot have more than 20 units.");
     }
 }
