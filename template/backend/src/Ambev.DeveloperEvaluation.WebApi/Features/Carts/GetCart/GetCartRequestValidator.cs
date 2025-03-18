@@ -6,6 +6,6 @@ public class GetCartRequestValidator : AbstractValidator<GetCartRequest>
 { 
     public GetCartRequestValidator()
     {
-        RuleFor(cart => cart.Id).Equal(ushort.MinValue);
+        RuleFor(cart => cart.Id).NotEmpty();
     }
 }

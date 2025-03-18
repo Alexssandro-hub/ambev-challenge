@@ -7,10 +7,18 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.CreateCart
     {
         public CreateCartRequestValidator()
         {
-            RuleFor(cart => cart.UserId).Equal(Guid.NewGuid()).Equal(Guid.Empty);
-            RuleFor(cart => cart.Date).Equal(DateTime.MinValue);
-            RuleFor(cart => cart.Date).Equal(DateTime.MaxValue);
-            RuleFor(cart => cart.ProductCarts).NotEmpty();
+            RuleFor(cart => cart.UserId)
+                .NotEmpty()
+                .WithMessage($"The User ID property is required");
+
+            RuleFor(cart => cart.Date)
+                .Equal(DateTime.MinValue);
+
+            RuleFor(cart => cart.Date)
+                .Equal(DateTime.MaxValue);
+
+            RuleFor(cart => cart.ProductCarts)
+                 .NotEmpty();
         }
     }
 }
