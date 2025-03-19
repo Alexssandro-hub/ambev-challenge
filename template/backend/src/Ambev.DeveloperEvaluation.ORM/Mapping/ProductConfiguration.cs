@@ -9,7 +9,9 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
     public void Configure(EntityTypeBuilder<Product> builder)
     {
         builder.ToTable("Products");
-        builder.HasKey(p => p.Id); 
+        builder.HasKey(p => p.Id);
+
+        builder.Property(p => p.RatingId).IsRequired().HasColumnType($"integer");
 
         builder.Property(p => p.Title)
             .IsRequired()
@@ -41,6 +43,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
          
         builder.HasOne(p => p.Rating)
             .WithOne()
+            .HasForeignKey<Product>(p => p.Id)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }
