@@ -5,7 +5,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Validation;
 
 public class RatingValidator : AbstractValidator<Rating>
 {
-    private const float zero = 0.0000f;
+    private const float Zero = 0.0000f;
     public RatingValidator()
     {
         RuleFor(rating => rating.Id)
@@ -17,7 +17,7 @@ public class RatingValidator : AbstractValidator<Rating>
             .WithMessage($"The {nameof(Rating)} {nameof(Rating.Count)} property can't be less than 1");
 
         RuleFor(rating => rating.Rate)
-            .Equal(zero)
+            .Equal(Zero)
             .WithMessage($"The {nameof(Rating)} {nameof(Rating.Rate)} property can't be less than 1.0000f");
     }
 }
